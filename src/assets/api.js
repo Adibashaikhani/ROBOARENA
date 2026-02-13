@@ -2,11 +2,10 @@
 import { API_BASE } from "./config";
 
 export async function listMatches(stage = "") {
-  const url = new URL(API_BASE);
-  url.searchParams.set("action", "listMatches");
-  if (stage) url.searchParams.set("stage", stage);
+  const qs = new URLSearchParams({ action: "listMatches" });
+  if (stage) qs.set("stage", stage);
 
-  const res = await fetch(url.toString());
+  const res = await fetch(`${API_BASE}?${qs.toString()}`);
   const data = await res.json();
   if (!data.ok) throw new Error(data.error || "Failed to fetch matches");
   return data.matches || [];
