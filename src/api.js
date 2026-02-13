@@ -5,7 +5,6 @@ export async function listMatches(stage = "") {
   const qs = new URLSearchParams({ action: "listMatches" });
   if (stage) qs.set("stage", stage);
 
-  // Simple fetch - should work if deployment is set to "Anyone"
   const res = await fetch(`${API_BASE}?${qs.toString()}`);
   const data = await res.json();
   if (!data.ok) throw new Error(data.error || "Failed to fetch matches");
@@ -36,7 +35,7 @@ export async function updateMatch(payload) {
     }
   }
 
-  // Send as GET request with parameters (this bypasses CORS preflight)
+  // Use GET instead of POST to avoid CORS preflight
   const res = await fetch(`${API_BASE}?${params.toString()}`);
   const data = await res.json();
   if (!data.ok) throw new Error(data.error || "Failed to update match");
