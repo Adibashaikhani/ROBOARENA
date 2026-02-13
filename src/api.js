@@ -5,6 +5,7 @@ export async function listMatches(stage = "") {
   const qs = new URLSearchParams({ action: "listMatches" });
   if (stage) qs.set("stage", stage);
 
+  // Simple fetch - should work if deployment is set to "Anyone"
   const res = await fetch(`${API_BASE}?${qs.toString()}`);
   const data = await res.json();
   if (!data.ok) throw new Error(data.error || "Failed to fetch matches");
@@ -12,7 +13,7 @@ export async function listMatches(stage = "") {
 }
 
 export async function updateMatch(payload) {
-  const body = new URLSearchParams({
+  const params = new URLSearchParams({
     action: "updateMatch",
     pin: payload.pin,
     match_id: payload.match_id,
@@ -31,23 +32,13 @@ export async function updateMatch(payload) {
   for (const k of optional) {
     const v = payload[k];
     if (v !== undefined && v !== null && String(v).trim() !== "") {
-      body.set(k, String(v));
+      params.set(k, String(v));
     }
   }
 
-  try {
-    // Using no-cors mode to avoid CORS errors in console
-    // The update still works, we just can't read the response
-    await fetch(API_BASE, {
-      method: "POST",
-      mode: "no-cors",
-      body,
-    });
-
-    // Assume success since no-cors mode doesn't allow reading response
-    // The data is actually being updated successfully
-    return { ok: true, message: "Match updated" };
-  } catch (error) {
-    throw new Error("Failed to update match");
-  }
+  // Send as GET request with parameters (this bypasses CORS preflight)
+  const res = await fetch(`${API_BASE}?${params.toString()}`);
+  const data = await res.json();
+  if (!data.ok) throw new Error(data.error || "Failed to update match");
+  return data;
 }
