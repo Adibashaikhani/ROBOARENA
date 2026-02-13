@@ -200,8 +200,7 @@ export default function Referee() {
         setShowWinner(true);
       }
 
-      setMsg(`Saved: ${res.match_id} • ${res.status}`);
-      await refreshMatches();
+      setMsg("Update done ✅");
     } catch (e) {
       setErr(e.message || "Update failed");
     } finally {
