@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+fetch("https://script.google.com/macros/s/AKfycbw8D4jMoVDUrvfO0RfNdsz2i7Yw2fRWZJPFQGQuMKWSBFsqnPZ6v16sdSHn5d_QRQmp/exec", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    action: "updateMatch",
+    pin: "1234",
+    match_id: "Q11",
+    status: "Completed",
+    black_team1_score: 7,
+    black_team2_score: 5,
+    white_team1_score: 6,
+    white_team2_score: 4
+  })
+})
+.then(r => r.json())
+.then(console.log);
+</script>
+</body>
+</html>
