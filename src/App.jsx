@@ -10,6 +10,8 @@ import Stopwatch from "./pages/Stopwatch";
 import Venue from "./pages/Venue";
 import Admin from "./pages/Admin";
 import WinnerHistory from "./pages/WinnerHistory";
+import Champions from "./pages/Champions";
+
 
 
 
@@ -25,6 +27,8 @@ export default function App() {
         <Route path="/venue" element={<Venue />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/winners" element={<WinnerHistory />} />
+        <Route path="/champions" element={<Champions />} />
+
 
         
 

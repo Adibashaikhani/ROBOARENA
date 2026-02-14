@@ -85,6 +85,14 @@ export default function Home() {
                 accent="yellow"
               />
 
+              <QuickCard
+  to="/champions"
+  title="Champions"
+  subtitle="1st • 2nd • 3rd place winners"
+  accent="yellow"
+/>
+
+
             </div>
           </div>
         </div>
